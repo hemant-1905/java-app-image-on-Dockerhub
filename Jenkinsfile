@@ -1,10 +1,11 @@
 pipeline{
     agent any
-tools {
-  maven 'Maven3.9'
-}
+
 stages{
     stage("building maven build"){
+        tools {
+  maven 'Maven3.9'
+}
         steps{
                 sh 'mvn clean install package'
         }
