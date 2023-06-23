@@ -2,6 +2,12 @@ pipeline{
     agent any
 
 stages{
+
+  stage("Cloning Git Repo"){
+        steps{
+        git branch: 'main', credentialsId: 'personal-GitHub-Creds', url: 'https://github.com/hemant-1905/java-app-image-on-Dockerhub.git'
+    }
+    }
     stage("building maven build"){
         tools {
   maven 'Maven3.9'
