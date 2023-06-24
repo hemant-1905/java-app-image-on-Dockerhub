@@ -39,6 +39,10 @@ stages{
             }
         }
     }
-
+stage ("Deploy app to Kubernetes Cluster"){
+        steps{
+            sh 'kubectl apply -f deploymentservice.yaml'
+        }
+    }
 }
 }
