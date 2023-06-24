@@ -39,19 +39,19 @@ pipeline {
         script {
           def isDeploymentPresent = sh(
             script: 'kubectl get deployment spring-boot-k8s-deployment',
-            returnStatus: true
+            returnStdout: true
           )
 
           def isServicePresent = sh(
             script: 'kubectl get service springboot-k8ssvc'
-            returnStatus: true
+            returnStdout: true
           )
 
-          if (isDeploymentPresent == 0) {
+          if (isDeploymentPresent.trim().size() > 0) {
             sh 'kubectl delete deployment spring-boot-k8s-deployment'
           }
 
-          if (isServicePresent == 0) {
+          if (isServicePresent.trim().size() > 0) {
             sh 'kubectl delete service springboot-k8ssvc'
           }
 
