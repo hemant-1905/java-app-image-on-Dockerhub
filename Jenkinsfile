@@ -22,7 +22,7 @@ stages{
     {
         steps{
             script{
-                sh 'docker build -t "hemaant07/devops-integration:${env.BUILD_NUMBER}" .'
+                sh 'docker build -t hemaant07/devops-integration:${env.BUILD_NUMBER} .'
             }
         }
     }
@@ -35,7 +35,7 @@ stages{
                     sh 'docker login -u hemaant07 -p ${docker_password}'
 
 }
-                sh 'docker push "hemaant07/devops-integration:${env.BUILD_NUMBER}"'
+                sh 'docker push hemaant07/devops-integration:${env.BUILD_NUMBER}'
             }
         }
     }
