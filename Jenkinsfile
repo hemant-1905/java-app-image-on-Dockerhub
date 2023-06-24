@@ -36,26 +36,28 @@ pipeline {
 
     stage("Delete Existing K8 Objects") {
       steps {
-        script {
-          def isDeploymentPresent = sh(
-            script: 'kubectl get deployment spring-boot-k8s-deployment',
-            returnStdout: true
-          )
+        // script {
+        //   def isDeploymentPresent = sh(
+        //     script: 'kubectl get deployment spring-boot-k8s-deployment',
+        //     returnStdout: true
+        //   )
 
-          def isServicePresent = sh(
-            script: 'kubectl get service springboot-k8ssvc'
-            returnStdout: true
-          )
+        //   def isServicePresent = sh(
+        //     script: 'kubectl get service springboot-k8ssvc'
+        //     returnStdout: true
+        //   )
 
-          if (isDeploymentPresent.trim().size() > 0) {
-            sh 'kubectl delete deployment spring-boot-k8s-deployment'
-          }
+        //   if (isDeploymentPresent.trim().size() > 0) {
+        //     sh 'kubectl delete deployment spring-boot-k8s-deployment'
+        //   }
 
-          if (isServicePresent.trim().size() > 0) {
-            sh 'kubectl delete service springboot-k8ssvc'
-          }
+        //   if (isServicePresent.trim().size() > 0) {
+        //     sh 'kubectl delete service springboot-k8ssvc'
+        //   }
 
-        }
+        // }
+        sh 'kubectl delete deployment spring-boot-k8s-deployment --ignore-not-found=true'
+        sh 'kubectl delete service springboot-k8ssvc --ignore-not-found=true'
       }
 
     }
