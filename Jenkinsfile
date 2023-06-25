@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  tools {
+        maven 'Maven3.9'
+      }
   stages {
 
     stage("Cloning Git Repo") {
@@ -16,10 +19,7 @@ pipeline {
     }
   }
 
-    stage("building maven build") {
-      tools {
-        maven 'Maven3.9'
-      }
+    stage("building maven build") {     
       steps {
         sh 'mvn clean install package'
       }
