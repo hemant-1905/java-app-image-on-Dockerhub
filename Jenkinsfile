@@ -8,6 +8,12 @@ pipeline {
       }
     }
 
+    stage('SonarQube Analysis') {
+    withSonarQubeEnv(credentialsId: 'sonar-user-credentials', installationName: 'Sonarqube-jenkins') {
+      sh 'mvn sonar:sonar'
+    }
+  }
+
     stage("building maven build") {
       tools {
         maven 'Maven3.9'
