@@ -49,7 +49,7 @@ stage('Trivy Scan') {
             }
             
             steps {
-                sh 'apt update'
+                //sh 'apt update'
                 sh 'apt install curl'
                 sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin'
                 sh 'trivy --version'
