@@ -44,7 +44,7 @@ pipeline {
 stage('Trivy Scan') {
             agent {
                 docker {
-                   image 'ghcr.io/aquasecurity/trivy:latest'
+                   image 'aquasec/trivy'
                 }
             }
             
