@@ -42,20 +42,9 @@ pipeline {
 //   }
 
 stage('Trivy Scan') {
-            agent {
-                   docker {
-            image 'aquasec/trivy'
-            args '-v /var/run/docker.sock:/var/run/docker.sock -v /tmp/trivycache:/root/.cache/'
-        }
-            }
-            
-            steps {
-                // //sh 'apt update'
-                // sh 'sudo apt install curl'
-                // sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin'
-                sh 'trivy --version'
-              
-            }
+steps{
+       sh 'trivy image hemaant07/devops-integration:latest'
+}   
         }
 
 
