@@ -5,32 +5,32 @@ pipeline {
       }
   stages {
 
-    stage("Cloning Git Repo") {
-      steps {
-        git branch: 'main', credentialsId: 'personal-GitHub-Creds', url: 'https://github.com/hemant-1905/java-app-image-on-Dockerhub.git'
-      }
-    }
+  //   stage("Cloning Git Repo") {
+  //     steps {
+  //       git branch: 'main', credentialsId: 'personal-GitHub-Creds', url: 'https://github.com/hemant-1905/java-app-image-on-Dockerhub.git'
+  //     }
+  //   }
 
-    stage('SonarQube Analysis') {
-      steps{
-    withSonarQubeEnv(credentialsId: 'sonar-user-credentials', installationName: 'Sonarqube-jenkins') {
-      sh 'mvn sonar:sonar'
-    }
-    }
-  }
+  //   stage('SonarQube Analysis') {
+  //     steps{
+  //   withSonarQubeEnv(credentialsId: 'sonar-user-credentials', installationName: 'Sonarqube-jenkins') {
+  //     sh 'mvn sonar:sonar'
+  //   }
+  //   }
+  // }
 
-    stage("building maven build") {     
-      steps {
-        sh 'mvn clean install package'
-      }
-    }
-    stage("Building Docker image") {
-      steps {
-        script {
-          sh 'docker build -t hemaant07/devops-integration:latest .'
-        }
-      }
-    }
+  //   stage("building maven build") {     
+  //     steps {
+  //       sh 'mvn clean install package'
+  //     }
+  //   }
+  //   stage("Building Docker image") {
+  //     steps {
+  //       script {
+  //         sh 'docker build -t hemaant07/devops-integration:latest .'
+  //       }
+  //     }
+  //   }
 
 //   stage ("Trivy Scan Docker Image"){
 //     steps{
@@ -44,12 +44,12 @@ pipeline {
 stage('Trivy Scan') {
             agent {
                 docker {
-                   image 'aquasec/trivy'
+                   image 'ubuntu'
                 }
             }
             
             steps {
-                sh 'trivy image hemaant07/devops-integration:latest'
+                sh 'whoami'
             }
         }
 
