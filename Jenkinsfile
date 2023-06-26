@@ -31,6 +31,18 @@ pipeline {
         }
       }
     }
+
+  stage ("Trivy Scan Docker Image"){
+    steps{
+      script{
+        withDockerContainer(args: '-v /var/run/docker.sock:/var/run/docker.sock', image: 'aquasec/trivy') {
+         sh 'trivy image hemaant07/devops-integration:latest'
+}
+      }    }
+  }
+
+
+
     stage("Deploy to DockerHub") {
       steps {
         script {
