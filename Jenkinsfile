@@ -50,7 +50,7 @@ stage('Trivy Scan') {
             }
             
             steps {
-                sh 'trivy image hemaant07/devops-integration:latest'
+                sh 'aquasec/trivy image hemaant07/devops-integration:latest'
             }
         }
 
