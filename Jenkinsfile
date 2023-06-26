@@ -34,7 +34,7 @@ pipeline {
 
 stage('Trivy Scan') {
 steps{
-       sh 'trivy image --severity CRITICAL --format html --output trivy-scan_results.html hemaant07/devops-integration:latest'
+       sh 'trivy image --severity CRITICAL --output trivy-scan_results.html hemaant07/devops-integration:latest'
 } 
         }
 
