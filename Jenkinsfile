@@ -23,7 +23,7 @@ pipeline {
         }
       }
       steps {
-        sh 'jfrog rt upload --url localhost:8083 --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/devops-integration.jar java-web-app/'
+        sh 'jfrog rt upload --url http://localhost:8083 --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/devops-integration.jar java-web-app/'
       }
     }
   }
