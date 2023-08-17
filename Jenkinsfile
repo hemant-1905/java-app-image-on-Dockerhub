@@ -1,32 +1,40 @@
+//This pipeline is used to publish artifacts into jfrog artifactory post configuring "artifactory" plugin in global configuration in Jenkins..
+
 pipeline {
-  agent any
-  tools {
+    agent any
+    tools {
         maven 'Maven3.9'
-      }
-
-  environment {
-    CI = true
-    ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
-  }
-
-  stages {
-    stage('Build') {
-      steps {
-        sh 'mvn clean install'
-      }
     }
-    stage('Upload to Artifactory') {
-      agent {
-        docker {
-          image 'releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.2.0' 
-          reuseNode true
+
+    stages {
+        stage("Cloning Git Repo") {
+            steps {
+                git branch: 'main', credentialsId: 'personal-GitHub-Creds', url: 'https://github.com/hemant-1905/java-app-image-on-Dockerhub.git'
+            }
         }
-      }
-      steps {
-        //below line is correct but when we use localhost it doesn't identify on machine, in other cases real ones,this would be the ip, so it works. Also this
-        //method does not require artifactory or jfrog plugin as we are using jfrog CLI to connect using commands.
-        sh 'jfrog rt upload --url http://localhost:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/devops-integration.jar java-web-app/'
-      }
+        
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+        
+        stage('Push to Artifactory') {
+            steps {
+                script {
+                    def server = Artifactory.server 'my-artifactory'
+                    def uploadSpec = """{
+                        "files": [
+                            {
+                                "pattern": "target/*.jar",
+                                "target": "java-web-app/build-${BUILD_NUMBER}/"
+                            }
+                        ]
+                    }"""
+
+                    server.upload spec: uploadSpec
+                }
+            }
+        }
     }
-  }
 }
