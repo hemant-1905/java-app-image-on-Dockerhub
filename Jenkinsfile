@@ -25,7 +25,7 @@ pipeline {
       steps {
         //below line is correct but when we use localhost it doesn't identify on machine, in other cases real ones,this would be the ip, so it works. Also this
         //method does not require artifactory or jfrog plugin as we are using jfrog CLI to connect using commands.
-        sh 'jfrog rt upload --url http://127.0.0.1:8083/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/devops-integration.jar java-web-app/'
+        sh 'jfrog rt upload --url http://localhost:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/devops-integration.jar java-web-app/'
       }
     }
   }
