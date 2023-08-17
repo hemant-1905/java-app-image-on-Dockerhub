@@ -1,3 +1,5 @@
+//This does not use any plugin, rather handles using jfrog-cli image hitting jfrog commands, for plugin approach see another branch
+
 pipeline {
   agent any
   tools {
